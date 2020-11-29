@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -42,7 +43,22 @@ public class UserService {
     public CompletableFuture<List<User>> getAllUsers() {
         LOGGER.info("Get list of users by " + Thread.currentThread().getName());
         List<User> users = userRepository.findAll();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return CompletableFuture.completedFuture(users);
+    }
+
+    @Async
+    public CompletableFuture<Optional<User>> findUserById(Long id) {
+        LOGGER.info("Get user by userId by " + Thread.currentThread().getName());
+
+        System.out.println(10/0);   // deliberately exception is generated for experimental purpose
+
+        Optional<User> user = userRepository.findById(id);
+        return CompletableFuture.completedFuture(user);
     }
 
 

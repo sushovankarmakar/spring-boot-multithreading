@@ -1,6 +1,5 @@
 package com.example.springbootmultithreading.config;
 
-import com.example.springbootmultithreading.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class AsyncConfig {
     public Executor taskExecutor() {
         LOGGER.debug("Creating Async Task Executor");
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);    // initializing two threads
+        executor.setCorePoolSize(2);    // initializing two threads, so only these number of threads can work simultaneously at one time
         executor.setMaxPoolSize(2);
         executor.setQueueCapacity(100); // at a time, 100 numbers of tasks can be waiting in the blocking queue.
         executor.setThreadNamePrefix("userThread-");
